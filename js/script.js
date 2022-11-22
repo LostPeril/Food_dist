@@ -97,4 +97,40 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   setCloack(".timer", deadline);
+
+  // Modal
+
+  const modalTrigger = document.querySelectorAll("[data-modal]");
+  const modalClose = document.querySelector("[data-close]");
+  const modal = document.querySelector(".modal");
+
+  modalTrigger.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modal.classList.add("show");
+      modal.classList.remove("hide");
+      //modal.classList.toggle("show");//аналог строчки 115 и 116
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  function closeModal() {
+    modal.classList.add("hide");
+    modal.classList.remove("show");
+    //modal.classList.toggle("show"); //аналог строчки 115 и 116
+    document.body.style.overflow = "";
+  }
+
+  modalClose.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.code === "Escape" && modal.classList.contains("show")) {
+      closeModal();
+    }
+  });
 });
